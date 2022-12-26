@@ -73,5 +73,38 @@ public class ProductMenegerTest {
 
     }
 
+    @Test
+
+    public void deleteByIdTest () {
+        ProductRepo repo = new ProductRepo();
+        ProductMeneger manager = new ProductMeneger(repo);
+        Book book1 = new Book(122, "Book 1", 500, "Author 1");
+        Book book2 = new Book(132, "Book 2", 600, "Author 2");
+        Smartphone smartphone1 = new Smartphone(344, "Smartphone1", 7_000, "Vendor1");
+        manager.add(book1);
+        manager.add(book2);
+        manager.add(smartphone1);
+
+        repo.deleteProduct(132);
+
+        Assertions.assertEquals(repo.findById(132), null);
+    }
+
+    @Test
+
+    public void deleteByIdExceptionTest () {
+        ProductRepo repo = new ProductRepo();
+        ProductMeneger manager = new ProductMeneger(repo);
+        Book book1 = new Book(122, "Book 1", 500, "Author 1");
+        Book book2 = new Book(132, "Book 2", 600, "Author 2");
+        Smartphone smartphone1 = new Smartphone(344, "Smartphone1", 7_000, "Vendor1");
+        manager.add(book1);
+        manager.add(book2);
+        manager.add(smartphone1);
+
+        Assertions.assertThrows(NotFoundException.class, () -> {repo.deleteProduct(47);});
+
+    }
+
 
 }
